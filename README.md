@@ -1,4 +1,4 @@
-# url-zap 
+# url-zap
 
 This is an app bootstrapped according to the [init.tips](https://init.tips) stack, also known as the T3-Stack.
 
@@ -24,6 +24,10 @@ Also checkout these awesome tutorials on `create-t3-app`.
 
 ## How do I run this
 
+Needed: `node`
+Optional: [nvm](https://github.com/nvm-sh/nvm)
+
+- (optional) `nvm use`
 - `npm install`
 - `npm run dev`
 
@@ -41,7 +45,6 @@ Run the following commands :
 - (optional) `sudo npx playwright install-deps`
 - `npm run test:e2e`
 
-
 ## DB
 
 Db made with sqlite and Prisma
@@ -50,5 +53,6 @@ Schema generated with `npx prisma db push`
 
 ## tRPC
 
-## Style 
-Tailwind 
+## Style
+
+Tailwind
