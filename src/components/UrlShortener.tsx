@@ -1,5 +1,7 @@
 import React, { useState } from "react"
 
+import Link from 'next/link';
+
 import { trpc } from "../utils/trpc";
 
 /**
@@ -42,7 +44,7 @@ const UrlShortener: React.FC = () => {
                 </button>
             </form>
 
-            {shortUrl.data && <span className="text-white"> Your short url : <a href={shortUrl.data.targetUrl}>{shortUrl.data.targetUrl}</a></span>}
+            {shortUrl.data && <span className="bg-white"> Your short url : <a href={shortUrl.data.targetUrl} target='_blank'>http://localhost:3000/{shortUrl.data.targetUrl}</a></span>}
         </div>
     </div >
 }
