@@ -10,8 +10,11 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-model Example {
+model ShortUrl {
   id        String   @id @default(cuid())
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
+  sourceUrl String
+  targetUrl String
+  visited   Int      @default(0)
 }
