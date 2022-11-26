@@ -83,7 +83,11 @@ If a short url is created during the application runtime, the `src/pages/[slug].
 
 ## Style
 
-TODO : Tailwind + Mantine ?
+Tailwind for ease of use in HTML
+
+Tailwind preflight are disabled because they cause conflict with Mantine default theme
+
+Mantine for components + Layout
 
 ## Nice to haves
 
