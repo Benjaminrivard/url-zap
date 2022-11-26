@@ -1,43 +1,34 @@
 # url-zap
 
-This is an app bootstrapped according to the [init.tips](https://init.tips) stack, also known as the T3-Stack.
-
-## What's next? How do I make an app with this?
-
-We try to keep this project as simple as possible, so you can start with the most basic configuration and then move on to more advanced configuration.
-
-If you are not familiar with the different technologies used in this project, please refer to the respective docs. If you still are in the wind, please join our [Discord](https://t3.gg/discord) and ask for help.
-
-- [Next-Auth.js](https://next-auth.js.org)
-- [Prisma](https://prisma.io)
-- [TailwindCSS](https://tailwindcss.com)
-- [tRPC](https://trpc.io)
-
-We also [roll our own docs](https://create.t3.gg) with some summary information and links to the respective documentation.
-
-Also checkout these awesome tutorials on `create-t3-app`.
-
-- [Build a Blog With the T3 Stack - tRPC, TypeScript, Next.js, Prisma & Zod](https://www.youtube.com/watch?v=syEWlxVFUrY)
-- [Build a Live Chat Application with the T3 Stack - TypeScript, Tailwind, tRPC](https://www.youtube.com/watch?v=dXRRY37MPuk)
-- [Build a full stack app with create-t3-app](https://www.nexxel.dev/blog/ct3a-guestbook)
-- [A first look at create-t3-app](https://dev.to/ajcwebdev/a-first-look-at-create-t3-app-1i8f)
+This is an app bootstrapped according to the [init.tips](https://init.tips) stack, also known as the [T3-Stack](https://create.t3.gg)).
 
 ## How do I run this
 
-Needed: `node`
+Needed: `node >= 18`
 Optional: [nvm](https://github.com/nvm-sh/nvm)
 
 - (optional) `nvm use`
 - `npm install`
+- create a `.env` copy of the `.env.example` file, and replace the values if needed
 - `npm run dev`
 
-## How do I deploy this?
+## How would I deploy this?
 
-Follow our deployment guides for [Vercel](https://create.t3.gg/en/deployment/vercel) and [Docker](https://create.t3.gg/en/deployment/docker) for more information.
+Whether:
+
+- Using [Vercel](https://create.t3.gg/en/deployment/vercel)
+- Using [Docker](https://create.t3.gg/en/deployment/docker)
+- Using a Cloud Provider, [AWS for instance](https://aws.amazon.com/blogs/mobile/host-a-next-js-ssr-app-with-real-time-data-on-aws-amplify/)
+
+## folder structure
+
+Folder structure is detailed by [Create-T3-stack](https://create.t3.gg/en/folder-structure)
 
 ## E2E Testing
 
 The main use case is tested with [Playwright](https://playwright.dev/)
+
+The tests are located in the `<root>/e2e` directory
 
 Run the following commands :
 
@@ -49,10 +40,62 @@ Run the following commands :
 
 Db made with sqlite and Prisma
 
-Schema generated with `npx prisma db push`
+`postinstall` script details :
+
+1. Prisma client is created with `prisma generate`
+2. Schema created with `prisma db push`
+3. DB is seeded with `prisma db seed`
+
+To get correct typings of the prisma client, the TS extension in the IDE needs to be restarted.
+
+### Model description
+
+The `ShortUrl` model is defined in the `prisma/schema.prisma` file.
+
+- The `id` of the table is generated using the [cuid](https://github.com/paralleldrive/cuid) algorithm, and is the unique key of the table
+- The `sourceUrl` property contains the link provided by the user.
+- The `targetUrl` property is generated using `cuid.slug`
+  - `cuid.slug` produces a shorter (but more sensible to collision) string.
+  - That is why id is not generated using the method ([as recommended in the lib](https://github.com/paralleldrive/cuid#short-urls))
+- The `createdAt` and `updatedAt` are auto-generated and not used currently.
+  - The could be used to manage the TTL of an URL, with a cron task deleting too old links, for instance.
+- The `visited` attribute is incremented by 1 every time a link is clicked.
 
 ## tRPC
 
+tRPC stand for Typescript Remote Procedure Call
+
+It is designed to ensure end-to-end type safety (using typescript inference) between the whole application stack.
+
+It uses `zod` to validate inputs (both prior compilation and during the runtime) to ensure type safety.
+
+Backend logic is exposed through a router, that is injected inside the client app using the HOC `withTRPC`.
+
+## Backend
+
+The backend is powered through next `src/pages/api` folder.
+
+## SSG
+
+At application build time, every redirection page is generated beforehand, so it's ready to get statically served to the user.
+It ensure fast performances and a smooth experience.
+If a short url is created during the application runtime, the `src/pages/[slug].tsx` : `getStaticPaths.fallback` option kicks in and generate the page (which can then be cached)
+
 ## Style
 
-Tailwind
+TODO : Tailwind + Mantine ?
+
+## Nice to haves
+
+- [] Dark mode
+- [x] Same URL always returns the same generated string
+- [] User can customise the URL
+- [] Expiration dates on URLs
+- [x] Tests => Test implemented using Playwright, see [E2E Testing](#e2e-testing)
+- [x] Clicks counter => with api route [/api/url/tracking](http://localhost:300/api/url.tracking)
+
+## What's missing before going to production
+
+- should implement [prisma migration instead of pushing the model directly](https://www.prisma.io/docs/concepts/components/prisma-migrate/db-push#choosing-db-push-or-prisma-migrate).
+- component testing, maybe using jest & testing-library
+- better host handling
