@@ -1,6 +1,6 @@
 # url-zap
 
-This is an app bootstrapped according to the [init.tips](https://init.tips) stack, also known as the [T3-Stack](https://create.t3.gg)).
+This is an app bootstrapped according to the [init.tips](https://init.tips) stack, also known as the [T3-Stack](https://create.t3.gg).
 
 ## How do I run this
 
@@ -91,12 +91,12 @@ Mantine for components + Layout
 
 ## Nice to haves
 
-- [] Dark mode
+- [x] Dark mode
 - [x] Same URL always returns the same generated string
-- [] User can customise the URL
-- [] Expiration dates on URLs
+- [ ] User can customise the URL
+- [ ] Expiration dates on URLs
 - [x] Tests => Test implemented using Playwright, see [E2E Testing](#e2e-testing)
-- [x] Clicks counter => with api route [/api/url/tracking](http://localhost:300/api/url.tracking)
+- [*] Clicks counter => counter visible with api route [/api/url/tracking](http://localhost:300/api/url.tracking), but not working entierly as expected
 
 ## What's missing before going to production
 
