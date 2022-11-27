@@ -63,7 +63,7 @@ The `ShortUrl` model is defined in the `prisma/schema.prisma` file.
 
 ## tRPC
 
-tRPC stand for Typescript Remote Procedure Call
+[tRPC](https://trpc.io/) stand for Typescript Remote Procedure Call
 
 It is designed to ensure end-to-end type safety (using typescript inference) between the whole application stack.
 
@@ -96,7 +96,7 @@ Mantine for components + Layout
 - [ ] User can customise the URL
 - [ ] Expiration dates on URLs
 - [x] Tests => Test implemented using Playwright, see [E2E Testing](#e2e-testing)
-- [*] Clicks counter => counter visible with api route [/api/url/tracking](http://localhost:300/api/url.tracking), but not working entierly as expected
+- [*] Clicks counter => counter visible with api route [/api/url/tracking](http://localhost:300/api/url.tracking), but not working entirely as expected
 
 ## What's missing before going to production
 
