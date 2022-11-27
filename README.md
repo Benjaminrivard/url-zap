@@ -8,8 +8,8 @@ Needed: `node >= 18`
 Optional: [nvm](https://github.com/nvm-sh/nvm)
 
 - (optional) `nvm use`
-- `npm install`
 - create a `.env` copy of the `.env.example` file, and replace the values if needed
+- `npm install`
 - `npm run dev`
 
 ## How would I deploy this?
