@@ -26,7 +26,6 @@ export async function getStaticProps(
     });
     const slug = context.params?.slug as string;
     const shortUrl = await ssg.shortUrl.getByUrl.fetch(slug);
-    console.log(shortUrl)
     if (shortUrl) {
         await ssg.shortUrl.visit.fetch(shortUrl.id);
         return {

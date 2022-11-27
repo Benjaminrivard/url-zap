@@ -103,3 +103,6 @@ Mantine for components + Layout
 - should implement [prisma migration instead of pushing the model directly](https://www.prisma.io/docs/concepts/components/prisma-migrate/db-push#choosing-db-push-or-prisma-migrate).
 - component testing, maybe using jest & testing-library
 - better host handling
+- Because the page redirection page can be cached by the user or a CDN, the visit number might not increase correctly.
+  - Data fetching and navigation should occur in the client side if we wish to have a correct counter
+  - Otherwise we could use the HTTP code 307 (moved temporarily) to tell the user to never cache the page
