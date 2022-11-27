@@ -5,11 +5,11 @@ import {
   TextInput,
   Button,
   Group,
-  Box,
+  Alert,
   CopyButton,
 } from "@mantine/core";
 
-import { IconClipboard, IconClipboardCheck } from "@tabler/icons";
+import { IconClipboard, IconClipboardCheck, IconAlertCircle } from "@tabler/icons";
 
 import { trpc } from "../utils/trpc";
 
@@ -21,7 +21,7 @@ const schema = z.object({
  * A simple url shortener component that display a form and create a shorter version of the url
  */
 const UrlShortener: React.FC = () => {
-  const { data, mutate, isLoading } = trpc.shortUrl.create.useMutation();
+  const { data, mutate, isLoading, error } = trpc.shortUrl.create.useMutation();
 
   const form = useForm({
     validateInputOnChange: true,
@@ -84,6 +84,8 @@ const UrlShortener: React.FC = () => {
           </CopyButton>
         </div>
       )}
+      {error && <>
+      <Alert className="mt-2" icon={<IconAlertCircle size={16} />}>An error occurred while submitting the link 😔</Alert></>}
     </>
   );
 };
